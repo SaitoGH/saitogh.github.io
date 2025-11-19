@@ -98,7 +98,7 @@ body {
     user-select: none;
     -webkit-user-select: none;
     padding: 2rem;
-    color: whitesmoke;
+    color: black;
     z-index: 1;
 }
 .personal-img {
@@ -343,3 +343,4 @@ body {
     user-select: none;
 
 }
+
