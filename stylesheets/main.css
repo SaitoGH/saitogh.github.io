@@ -75,7 +75,7 @@ body {
     transition: height 0.5s ease;
     flex-wrap: wrap;
     overflow: hidden;
-    background-color: crimson;
+    background-color: white;
     filter: drop-shadow(5px 5px 5px white);
 }
 .middle-container.show {
@@ -126,7 +126,8 @@ body {
 .personal-info-wrapper h1  {
     overflow: hidden; 
     white-space: nowrap; 
-    margin: 1rem auto; 
+    border-bottom: 1px solid;
+    width: fit-content;
 }
 
 
@@ -340,4 +341,5 @@ body {
     width: auto;
     height: max(100px, 200px);
     user-select: none;
+
 }
