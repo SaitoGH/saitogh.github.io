@@ -1,4 +1,3 @@
-
 <template>
   <div class="app-root">
     
@@ -7,7 +6,8 @@
       <ul id="shortcut-list">
         <li style="--list:1"><span><a style='text-decoration: none; color:inherit;' href='#home'>home</a></span></li>
         <li style="--list:2"><span><a style='text-decoration: none; color:inherit;' href='#about'>about</a></span></li>
-        <li style="--list:3"><span><a style='text-decoration: none; color:inherit;' href='#portfolio'>portfolio</a></span></li>
+        <li style="--list:3"><span><a style='text-decoration: none; color:inherit;' href='#experience'>experience</a></span></li>
+        <li style="--list:4"><span><a style='text-decoration: none; color:inherit;' href='#portfolio'>portfolio</a></span></li>
       </ul>
     </div>
 
@@ -44,13 +44,6 @@
               various software development domains. Highly interested in the fintech industry, with a focus on investment-related
               solutions.
             </p>
-            <div class="tech-stack">
-              <h3>Tech Stack & Skillsets</h3>
-            </div>
-            <div class="tech-grid">
-               <span v-for="tech in techStack" :key="tech" class="tech-tag">{{ tech }}</span>
-            </div>
-
             <div class="social">
               <a href="https://www.linkedin.com/in/amirraif/" target="_blank" class="linkedin-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -66,8 +59,30 @@
           </div>
         </div>
 
+        <div id="experience" class="experience-block">
+          <div class="deck-title">Experience</div>
+
+          <div class="exp-timeline">
+            <div class="exp-row" v-for="(exp, i) in experiences" :key="i">
+              <div class="exp-marker">
+                <span class="exp-dot"></span>
+                <span class="exp-line"></span>
+              </div>
+              <div class="exp-content">
+                <span class="exp-period">{{ exp.period }}</span>
+                <h3>{{ exp.role }}</h3>
+                <h4>{{ exp.company }}</h4>
+                <p>{{ exp.desc }}</p>
+                <ul class="exp-highlights">
+                  <li v-for="(point, j) in exp.highlights" :key="j">{{ point }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="project-deck">
-          <div class="deck-title">Current Work</div>
+          <div class="deck-title">Projects</div>
           
           <div class="p-row" v-for="(proj, i) in projects" :key="i" :class="{ 'reverse': i % 2 !== 0 }">
             
@@ -81,9 +96,6 @@
               <span class="p-subtitle">{{ proj.subtitle }}</span>
               <h3>{{ proj.title }}</h3>
               <p>{{ proj.desc }}</p>
-              <div class="p-tags">
-                <span v-for="tag in proj.tags" :key="tag">{{ tag }}</span>
-              </div>
             </div>
 
           </div>
@@ -118,6 +130,7 @@
       <ul>
         <label>About</label>
         <li><a href="#about">about me</a></li>
+        <li><a href="#experience">experience</a></li>
         <li><a href="#portfolio">studies</a></li>
         <li><a href="#portfolio">portfolio (projects)</a></li>
       </ul>
@@ -186,7 +199,7 @@ const education = [
   {
     institution: 'Universiti Kuala Lumpur (MIIT)',
     degree: 'Bachelor of Information Technology (Hons.) in Software Engineering',
-    meta: '3.73 CGPA | Dean’s List'
+    meta: '3.73 CGPA | Dean’s'
   },
   {
     institution: 'LEVEL UP @ SCHOOLS 2019',
@@ -195,32 +208,32 @@ const education = [
   }
 ];
 
-const techStack = [
-  'Vue.js', 
-  'Node.js', 
-  'ASP.NET', 
-  'Python (Flask)', 
-  'MongoDB', 
-  'SQL',
-  'C# (Unity, Game Development)',
-  'GitHub',
-  'Source Documentation (SRS, STP, etc.)',
-];
-
 const projects = [
   {
     title: 'Final Year Project',
-    subtitle: 'WelfareCapital - Dynamic Portfolio Management System (DPMS) & Asset Prediction',
-    desc: 'A comprehensive investment portfolio management system with asset trend prediction using time-series models, including LSTM, ARIMA, SARIMA, and Prophet. Features include multi-portfolio management, real-time data visualization, and automated risk assessment tools.',
-    tags: ['Vue.js', 'Python', 'TensorFlow', 'Time-Series Model', 'MongoDB'],
+    subtitle: 'WelfareCapital - Dynamic Portfolio Management System (DPMS)',
+    desc: 'A comprehensive investment portfolio management system. Features include multi-portfolio management and real-time data visualization.',
     image: '/images/wc1.png'
   },
   {
     title: 'Lazer Warzone',
     subtitle: 'MDEC Level Up @ KL Winner',
     desc: 'An award-winning "Auto-Chess" strategy game developed in Unity. Players draft units and position them strategically to defeat opponents in automated battles.',
-    tags: ['Unity', 'C#', 'Game Development'],
     image: '/images/lw1.png'
+  }
+];
+
+const experiences = [
+  {
+    role: 'Information Technology Intern',
+    company: 'Texas Instruments',
+    period: 'March 2 – July 3, 2026',
+    desc: 'Designed and built a UI for the Material Control System (MCS), replacing a previously manual production-line workflow with a digital, visual interface.',
+    highlights: [
+      'Built flat-view visualizations of machines across multiple facilities, floors, buildings, and operations to improve production-line visibility',
+      'Integrated multiple production APIs into a unified interface, consolidating live machine and process data',
+      'Deployed application components using Docker, and worked within a Jira/Confluence/Bitbucket/Artifactory/Jenkins development pipeline'
+    ]
   }
 ];
 
@@ -449,21 +462,6 @@ a {
   margin-bottom: 2rem;
 }
 
-.tech-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tech-tag {
-  border: 1px solid var(--purple-main);
-  color: var(--purple-main);
-  padding: 5px 12px;
-  font-size: 0.85rem;
-  font-family: monospace;
-  text-transform: uppercase;
-}
-
 .social {
   margin-top: 1.5rem;
 }
@@ -574,19 +572,96 @@ a {
   margin: 0;
 }
 
-.p-tags {
+.experience-block {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out 0.1s;
 }
 
-.p-tags span {
-  font-family: monospace;
-  font-size: 0.75rem;
+.cinema-section.reveal .experience-block {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exp-timeline {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.exp-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.exp-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
+}
+
+.exp-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   background: var(--purple-main);
-  color: white;
-  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.exp-line {
+  width: 2px;
+  flex: 1;
+  background: rgba(60, 9, 108, 0.2);
+  margin-top: 4px;
+}
+
+.exp-content {
+  flex: 1;
+  padding-bottom: 1.5rem;
+}
+
+.exp-period {
+  font-family: monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.exp-content h3 {
+  font-size: 1.6rem;
+  margin: 0.4rem 0 0.1rem 0;
+  color: var(--purple-main);
+}
+
+.exp-content h4 {
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: normal;
+  margin: 0 0 1rem 0;
+  color: #555;
+}
+
+.exp-content p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.exp-highlights {
+  margin: 0 0 1rem 0;
+  padding-left: 1.2rem;
+}
+
+.exp-highlights li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
 
 .list-section {
@@ -746,6 +821,9 @@ a {
   }
   .top-img-layout {
     max-width: 100px;
+  }
+  .exp-row {
+    gap: 1rem;
   }
 }
 </style>
